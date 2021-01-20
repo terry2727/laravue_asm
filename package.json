@@ -20,6 +20,7 @@
     "dependencies": {
         "vue": "^2.6.12",
         "vue-axios": "^3.2.2",
+        "vue-bootstrap4-table": "^1.1.11",
         "vue-router": "^3.4.9"
     }
 }
