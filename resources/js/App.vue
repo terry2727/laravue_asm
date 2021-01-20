@@ -1,24 +1,35 @@
 <template>
   <div class="container">
-    <div class="text-center" style="margin: 20px 0px 20px 0px">
-      <span class="text-secondary">Laravue Project</span>
-    </div>
-
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <div class="collapse navbar-collapse">
-        <div class="navbar-nav">
-          <router-link to="/" class="nav-item nav-link">Home</router-link>
-          <router-link to="/add" class="nav-item nav-link"
-            >Add App User</router-link
-          >
-        </div>
-      </div>
-    </nav>
-    <br />
-    <router-view></router-view>
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <router-link to="/" class="nav-link">Home</router-link>
+        </li>
+        <li class="nav-item">
+          <router-link to="/add" class="nav-link">Add AppUsers</router-link>
+        </li>
+        <li class="nav-item">
+          <router-link to="/appusers" class="nav-link">AppUsers</router-link>
+        </li>
+      </ul>
+    </nav><br />
+    <transition name="fade">
+      <router-view></router-view>
+    </transition>
   </div>
 </template>
- 
+
+<style>
+    .fade-enter-active, .fade-leave-active {
+      transition: opacity .5s
+    }
+    .fade-enter, .fade-leave-active {
+      opacity: 0
+    }
+</style>
+
 <script>
-export default {};
+
+    export default{
+    }
 </script>
