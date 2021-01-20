@@ -1,3 +1,4 @@
+<!--
 <template>
   <div>
     <h3 class="text-center">All Posts</h3>
@@ -34,7 +35,53 @@
     </table>
   </div>
 </template>
- 
+ -->
+ <template>
+  <div>
+    <h1>App Users</h1>
+    <div class="row">
+      <div class="col-md-10"></div>
+      <div class="col-md-2">
+        <router-link :to="{ name: 'add' }" class="btn btn-primary"
+          >Add User</router-link
+        >
+      </div>
+    </div>
+    <br />
+
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Address</th>
+          <th>Phone</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="appuser in appusers" :key="appuser.id">
+          <td>{{ appuser.name }}</td>
+          <td>{{ appuser.address }}</td>
+          <td>{{ appuser.phonenumber }}</td>
+          <td>
+            <router-link
+              :to="{ name: 'edit', params: { id: appuser.id } }"
+              class="btn btn-primary"
+              >Edit</router-link
+            >
+            <button
+              class="btn btn-danger"
+              @click.prevent="deleteAppUser(appuser.id)"
+            >
+              Delete
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</template>
+
 <script>
 export default {
   data() {

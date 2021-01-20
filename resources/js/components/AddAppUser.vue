@@ -1,30 +1,40 @@
 <template>
   <div>
-    <h3 class="text-center">Add App User</h3>
-    <div class="row">
-      <div class="col-md-6">
-        <form @submit.prevent="addAppUser">
+    <h1>Create New User</h1>
+    <form @submit.prevent="addAppUser" method="POST">
+      <div class="row">
+        <div class="col-md-6">
           <div class="form-group">
-            <label>Name</label>
+            <label>User Name:</label>
             <input type="text" class="form-control" v-model="appuser.name" />
           </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
           <div class="form-group">
-            <label>Address</label>
+            <label>Address:</label>
             <input type="text" class="form-control" v-model="appuser.address" />
           </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
           <div class="form-group">
-            <label>Phone</label>
+            <label>Phone:</label>
             <input
               type="text"
               class="form-control"
               v-model="appuser.phonenumber"
             />
           </div>
-
-          <button type="submit" class="btn btn-primary">Add App User</button>
-        </form>
+        </div>
       </div>
-    </div>
+      <br />
+      <div class="form-group">
+        <button class="btn btn-primary">Add</button>
+      </div>
+    </form>
   </div>
 </template>
  
