@@ -1,6 +1,6 @@
-import AppUsers from "./components/AppUsers.vue";
-import AddAppUser from "./components/AddAppUser.vue";
-import EditAppUser from "./components/EditAppUser.vue";
+import AppUsers from "./components/appuser/AppUsers.vue";
+import AddAppUser from "./components/appuser/AddAppUser.vue";
+import EditAppUser from "./components/appuser/EditAppUser.vue";
 
 export const routes = [
     {
