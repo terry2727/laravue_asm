@@ -67,7 +67,7 @@ export default {
       this.axios
         .post(
           `http://localhost:8000/api/device/update/${this.$route.params.id}`,
-          this.appuser
+          this.device
         )
         .then((response) => {
           this.$router.push({ name: "devices" });

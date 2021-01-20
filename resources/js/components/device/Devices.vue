@@ -19,7 +19,7 @@
           <th>Model</th>
           <th>Producer</th>
           <th>Functions</th>
-          <th>Actions</th>
+          <th>Actions</th>  
         </tr>
       </thead>
       <tbody>
