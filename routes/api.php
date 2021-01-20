@@ -3,7 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AppUserController;
-
+use App\Http\Controllers\API\DeviceController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -25,4 +25,12 @@ Route::group(['prefix' => 'appuser'], function () {
     Route::get('edit/{id}', [AppUserController::class, 'edit']);
     Route::post('update/{id}', [AppUserController::class, 'update']);
     Route::delete('delete/{id}', [AppUserController::class, 'delete']);
+});
+
+Route::get('devices', [DeviceController::class, 'index']);
+Route::group(['prefix' => 'device'], function () {
+    Route::post('add', [DeviceController::class, 'add']);
+    Route::get('edit/{id}', [DeviceController::class, 'edit']);
+    Route::post('update/{id}', [DeviceController::class, 'update']);
+    Route::delete('delete/{id}', [DeviceController::class, 'delete']);
 });

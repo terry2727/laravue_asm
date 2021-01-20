@@ -12,8 +12,8 @@ class AppUserController extends Controller
     // all app user
     public function index()
     {
-        $posts = AppUser::all()->toArray();
-        return array_reverse($posts);
+        $appusers = AppUser::all()->toArray();
+        return array_reverse($appusers);
     }
 
     // add app user
