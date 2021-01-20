@@ -6,9 +6,6 @@
           <router-link to="/" class="nav-link">Home</router-link>
         </li>
         <li class="nav-item">
-          <router-link to="/add" class="nav-link">Add AppUsers</router-link>
-        </li>
-        <li class="nav-item">
           <router-link to="/appusers" class="nav-link">AppUsers</router-link>
         </li>
       </ul>
