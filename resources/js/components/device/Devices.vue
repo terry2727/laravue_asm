@@ -1,160 +1,112 @@
-<!--
- <template>
-  <div>
-    <h1>Devices</h1>
-    <div class="row">
-      <div class="col-md-10"></div>
-      <div class="col-md-2">
-        <router-link :to="{ name: 'add_device' }" class="btn btn-primary"
-          >Add Device</router-link
-        >
-      </div>
-    </div>
-    <br />
-
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Model</th>
-          <th>Producer</th>
-          <th>Functions</th>
-          <th>Actions</th>  
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="device in devices" :key="device.id">
-          <td>{{ device.name }}</td>
-          <td>{{ device.model }}</td>
-          <td>{{ device.producer }}</td>
-          <td>{{ device.functions }}</td>
-          <td>
-            <router-link
-              :to="{ name: 'edit_device', params: { id: device.id } }"
-              class="btn btn-primary"
-              >Edit</router-link>
-            <button
-              class="btn btn-danger"
-              @click.prevent="deleteDevice(device.id)"
-            >
-              Delete
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</template>
-
-<script>
-export default {
-  data() {
-    return {
-      devices: [],
-    };
-  },
-  created() {
-    this.axios.get("http://localhost:8000/api/devices").then((response) => {
-      this.devices = response.data;
-    });
-  },
-  methods: {
-    deleteDevice(id) {
-      this.axios
-        .delete(`http://localhost:8000/api/device/delete/${id}`)
-        .then((response) => {
-          let i = this.devices.map((item) => item.id).indexOf(id); // find index of your object
-          this.devices.splice(i, 1);
-        });
-    },
-  },
-};
-</script>
-
--->
-
 <template>
-  <div id="app">
-    <h1>Devices</h1>
-    <div class="row">
-      <div class="col-md-10"></div>
-      <div class="col-md-2">
-        <router-link :to="{ name: 'add_device' }" class="btn btn-primary"
-          >Add Device</router-link
-        >
-      </div>
-    </div>
-    <br />
-    <vue-bootstrap4-table :rows="devices" :columns="columns" :config="config">
-    </vue-bootstrap4-table>
-  </div>
+  <v-data-table
+    :headers="headers"
+    :items="desserts"
+    :items-per-page="5"
+    class="elevation-1"
+  ></v-data-table>
 </template>
 
 <script>
-import VueBootstrap4Table from "vue-bootstrap4-table";
-
-export default {
-  name: "App",
-  data: function () {
-    return {
-      devices: [],
-      columns: [
-        {
-          label: "Name",
-          name: "name",
-          filter: {
-            type: "simple",
-            placeholder: "Device name",
+  export default {
+    data () {
+      return {
+        headers: [
+          {
+            text: 'Dessert (100g serving)',
+            align: 'start',
+            sortable: false,
+            value: 'name',
           },
-          sort: true,
-        },
-        {
-          label: "Model",
-          name: "model",
-          filter: {
-            type: "simple",
-            placeholder: "Enter model",
+          { text: 'Calories', value: 'calories' },
+          { text: 'Fat (g)', value: 'fat' },
+          { text: 'Carbs (g)', value: 'carbs' },
+          { text: 'Protein (g)', value: 'protein' },
+          { text: 'Iron (%)', value: 'iron' },
+        ],
+        desserts: [
+          {
+            name: 'Frozen Yogurt',
+            calories: 159,
+            fat: 6.0,
+            carbs: 24,
+            protein: 4.0,
+            iron: '1%',
           },
-          sort: true,
-        },
-        {
-          label: "Producer",
-          name: "producer",
-          sort: true,
-        },
-        {
-          label: "Functions",
-          name: "functions",
-        },
-        {
-          label: "Actions",
-          name: "actions",
-        },
-      ],
-      config: {
-        checkbox_rows: false,
-        rows_selectable: true,
-        card_title: "List of devices",
-      },
-    };
-  },
-  created() {
-    this.axios.get("http://localhost:8000/api/devices").then((response) => {
-      this.devices = response.data;
-    });
-  },
-  methods: {
-    deleteDevice(id) {
-      this.axios
-        .delete(`http://localhost:8000/api/device/delete/${id}`)
-        .then((response) => {
-          let i = this.devices.map((item) => item.id).indexOf(id); // find index of your object
-          this.devices.splice(i, 1);
-        });
+          {
+            name: 'Ice cream sandwich',
+            calories: 237,
+            fat: 9.0,
+            carbs: 37,
+            protein: 4.3,
+            iron: '1%',
+          },
+          {
+            name: 'Eclair',
+            calories: 262,
+            fat: 16.0,
+            carbs: 23,
+            protein: 6.0,
+            iron: '7%',
+          },
+          {
+            name: 'Cupcake',
+            calories: 305,
+            fat: 3.7,
+            carbs: 67,
+            protein: 4.3,
+            iron: '8%',
+          },
+          {
+            name: 'Gingerbread',
+            calories: 356,
+            fat: 16.0,
+            carbs: 49,
+            protein: 3.9,
+            iron: '16%',
+          },
+          {
+            name: 'Jelly bean',
+            calories: 375,
+            fat: 0.0,
+            carbs: 94,
+            protein: 0.0,
+            iron: '0%',
+          },
+          {
+            name: 'Lollipop',
+            calories: 392,
+            fat: 0.2,
+            carbs: 98,
+            protein: 0,
+            iron: '2%',
+          },
+          {
+            name: 'Honeycomb',
+            calories: 408,
+            fat: 3.2,
+            carbs: 87,
+            protein: 6.5,
+            iron: '45%',
+          },
+          {
+            name: 'Donut',
+            calories: 452,
+            fat: 25.0,
+            carbs: 51,
+            protein: 4.9,
+            iron: '22%',
+          },
+          {
+            name: 'KitKat',
+            calories: 518,
+            fat: 26.0,
+            carbs: 65,
+            protein: 7,
+            iron: '6%',
+          },
+        ],
+      }
     },
-  },
-  components: {
-    VueBootstrap4Table,
-  },
-};
+  }
 </script>
