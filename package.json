@@ -11,9 +11,12 @@
     },
     "devDependencies": {
         "axios": "^0.21",
+        "deepmerge": "^4.2.2",
         "laravel-mix": "^6.0.6",
         "lodash": "^4.17.19",
         "postcss": "^8.1.14",
+        "sass": "^1.32.5",
+        "sass-loader": "^10.1.1",
         "vue-loader": "^15.9.5",
         "vue-template-compiler": "^2.6.12"
     },
@@ -21,6 +24,7 @@
         "vue": "^2.6.12",
         "vue-axios": "^3.2.2",
         "vue-bootstrap4-table": "^1.1.11",
-        "vue-router": "^3.4.9"
+        "vue-router": "^3.4.9",
+        "vuetify": "^2.4.2"
     }
 }
