@@ -53,7 +53,7 @@ export default {
   },
   created() {
     this.axios.get("http://localhost:8000/api/appusers").then((response) => {
-      this.appusers = response.data;
+      this.appusers = response.data.data;
     });
   },
   methods: {

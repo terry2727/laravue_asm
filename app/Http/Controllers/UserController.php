@@ -13,11 +13,18 @@ class UserController extends Controller
     // User Register
     public function register(Request $request)
     {
+        $user = User::where('email', $request->email)->first();
+
+        if (isset($user->email)) {
+            return response()->json(["status" => "failed", "validation_errors" => "Email already exists!"], 401);
+        }
+
         $validator  =   Validator::make($request->all(), [
             "name"  =>  "required",
             "email"  =>  "required|email",
             "password"  =>  "required"
         ]);
+
 
         if ($validator->fails()) {
             return response()->json(["status" => "failed", "validation_errors" => $validator->errors()]);
@@ -74,5 +81,11 @@ class UserController extends Controller
         } else {
             return response()->json(["status" => "failed", "message" => "Whoops! No user found"]);
         }
+    }
+
+    // Logout
+    public function logout()
+    {
+        Auth::logout();
     }
 }

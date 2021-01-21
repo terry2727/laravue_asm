@@ -28,7 +28,7 @@ Route::post("login", [UserController::class, "login"]);
 Route::middleware('auth:api')->group(function () {
 });
 
-
+// Route::get('appusers', [AppUserController::class, 'index']);
 
 Route::middleware('auth:api')->group(function () {
     Route::get("user", [UserController::class, "user"]);

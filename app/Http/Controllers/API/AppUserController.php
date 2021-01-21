@@ -22,7 +22,8 @@ class AppUserController extends Controller
             if (count($appusers) > 0) {
                 return response()->json(["status" => "success", "data" => $appusers], 200);
             } else {
-                return response()->json(["status" => "failed", "count" => count($appusers), "message" => "Failed! no app user found"], 200);
+                return response()->json(["status" => "failed", "count" => count($appusers), 
+                "message" => "Failed! no app user found"], 200);
             }
         }
     }
