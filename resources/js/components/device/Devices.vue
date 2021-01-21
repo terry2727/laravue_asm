@@ -1,160 +1,146 @@
-<!--
- <template>
-  <div>
-    <h1>Devices</h1>
-    <div class="row">
-      <div class="col-md-10"></div>
-      <div class="col-md-2">
-        <router-link :to="{ name: 'add_device' }" class="btn btn-primary"
-          >Add Device</router-link
-        >
-      </div>
-    </div>
-    <br />
-
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Model</th>
-          <th>Producer</th>
-          <th>Functions</th>
-          <th>Actions</th>  
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="device in devices" :key="device.id">
-          <td>{{ device.name }}</td>
-          <td>{{ device.model }}</td>
-          <td>{{ device.producer }}</td>
-          <td>{{ device.functions }}</td>
-          <td>
-            <router-link
-              :to="{ name: 'edit_device', params: { id: device.id } }"
-              class="btn btn-primary"
-              >Edit</router-link>
-            <button
-              class="btn btn-danger"
-              @click.prevent="deleteDevice(device.id)"
-            >
-              Delete
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</template>
-
-<script>
-export default {
-  data() {
-    return {
-      devices: [],
-    };
-  },
-  created() {
-    this.axios.get("http://localhost:8000/api/devices").then((response) => {
-      this.devices = response.data;
-    });
-  },
-  methods: {
-    deleteDevice(id) {
-      this.axios
-        .delete(`http://localhost:8000/api/device/delete/${id}`)
-        .then((response) => {
-          let i = this.devices.map((item) => item.id).indexOf(id); // find index of your object
-          this.devices.splice(i, 1);
-        });
-    },
-  },
-};
-</script>
-
--->
-
 <template>
-  <div id="app">
-    <h1>Devices</h1>
-    <div class="row">
+  <v-app id="inspire">
+    <v-card-title>
       <div class="col-md-10"></div>
       <div class="col-md-2">
         <router-link :to="{ name: 'add_device' }" class="btn btn-primary"
-          >Add Device</router-link
+          style="color:white">Add Device</router-link
         >
       </div>
-    </div>
-    <br />
-    <vue-bootstrap4-table :rows="devices" :columns="columns" :config="config">
-    </vue-bootstrap4-table>
-  </div>
+    </v-card-title>
+
+    <v-card>
+      <v-card-title>
+        Devices
+        <v-spacer></v-spacer>
+        <v-text-field
+          v-model="search"
+          append-icon="mdi-magnify"
+          label="Search"
+          single-line
+          hide-details
+        ></v-text-field>
+      </v-card-title>
+      <v-data-table :headers="headers" :items="desserts" :search="search">
+        <template v-slot:item.actions="{ item }">
+          <router-link
+            :to="{ name: 'edit_device', params: { id: item.id } }"
+            class="btn btn-primary" style="color:white"
+            >Edit</router-link
+          >
+          <button class="btn btn-danger" @click.prevent="deleteDevice(item.id)">
+            Delete
+          </button>
+        </template>
+      </v-data-table>
+    </v-card>
+  </v-app>
 </template>
 
 <script>
-import VueBootstrap4Table from "vue-bootstrap4-table";
-
 export default {
-  name: "App",
-  data: function () {
-    return {
-      devices: [],
-      columns: [
-        {
-          label: "Name",
-          name: "name",
-          filter: {
-            type: "simple",
-            placeholder: "Device name",
-          },
-          sort: true,
-        },
-        {
-          label: "Model",
-          name: "model",
-          filter: {
-            type: "simple",
-            placeholder: "Enter model",
-          },
-          sort: true,
-        },
-        {
-          label: "Producer",
-          name: "producer",
-          sort: true,
-        },
-        {
-          label: "Functions",
-          name: "functions",
-        },
-        {
-          label: "Actions",
-          name: "actions",
-        },
-      ],
-      config: {
-        checkbox_rows: false,
-        rows_selectable: true,
-        card_title: "List of devices",
+  data: () => ({
+    dialog: false,
+    dialogDelete: false,
+    headers: [
+      {
+        text: "Name",
+        align: "start",
+        sortable: false,
+        value: "name",
       },
-    };
+      { text: "Model", value: "model" },
+      { text: "Producer", value: "producer" },
+      { text: "Functions", value: "functions" },
+      // { text: "Protein (g)", value: "protein" },
+      { text: "Actions", value: "actions", sortable: false },
+    ],
+    desserts: [],
+    editedIndex: -1,
+    editedItem: {
+      name: "",
+      model: 0,
+      producer: 0,
+      functions: 0,
+    },
+  }),
+
+  computed: {
+    formTitle() {
+      return this.editedIndex === -1 ? "New Item" : "Edit Item";
+    },
   },
+
+  watch: {
+    dialog(val) {
+      val || this.close();
+    },
+    dialogDelete(val) {
+      val || this.closeDelete();
+    },
+  },
+
   created() {
-    this.axios.get("http://localhost:8000/api/devices").then((response) => {
-      this.devices = response.data;
-    });
+    this.initialize();
   },
+
   methods: {
+    initialize() {
+      this.axios.get("http://localhost:8000/api/devices").then((response) => {
+        console.log(response);
+        this.desserts = response.data.data;
+      });
+    },
+
     deleteDevice(id) {
       this.axios
         .delete(`http://localhost:8000/api/device/delete/${id}`)
         .then((response) => {
-          let i = this.devices.map((item) => item.id).indexOf(id); // find index of your object
-          this.devices.splice(i, 1);
+          let i = this.desserts.map((item) => item.id).indexOf(id); // find index of your object
+          this.desserts.splice(i, 1);
         });
     },
-  },
-  components: {
-    VueBootstrap4Table,
+    editItem(item) {
+      this.editedIndex = this.desserts.indexOf(item);
+      this.editedItem = Object.assign({}, item);
+      this.dialog = true;
+    },
+
+    deleteItem(item) {
+      this.editedIndex = this.desserts.indexOf(item);
+      this.editedItem = Object.assign({}, item);
+      this.dialogDelete = true;
+    },
+
+    deleteItemConfirm() {
+      this.desserts.splice(this.editedIndex, 1);
+      this.closeDelete();
+    },
+
+    close() {
+      this.dialog = false;
+      this.$nextTick(() => {
+        this.editedItem = Object.assign({}, this.defaultItem);
+        this.editedIndex = -1;
+      });
+    },
+
+    closeDelete() {
+      this.dialogDelete = false;
+      this.$nextTick(() => {
+        this.editedItem = Object.assign({}, this.defaultItem);
+        this.editedIndex = -1;
+      });
+    },
+
+    save() {
+      if (this.editedIndex > -1) {
+        Object.assign(this.desserts[this.editedIndex], this.editedItem);
+      } else {
+        this.desserts.push(this.editedItem);
+      }
+      this.close();
+    },
   },
 };
 </script>
