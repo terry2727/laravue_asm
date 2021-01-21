@@ -58,7 +58,7 @@ export default {
     this.axios
       .get(`http://localhost:8000/api/device/edit/${this.$route.params.id}`)
       .then((response) => {
-        this.device = response.data;
+        this.device = response.data.data;
         // console.log(response.data);
       });
   },

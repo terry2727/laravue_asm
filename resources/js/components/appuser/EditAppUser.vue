@@ -46,7 +46,7 @@ export default {
     this.axios
       .get(`http://localhost:8000/api/appuser/edit/${this.$route.params.id}`)
       .then((response) => {
-        this.appuser = response.data;
+        this.appuser = response.data.data;
         // console.log(response.data);
       });
   },
