@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AppUserController;
 use App\Http\Controllers\API\DeviceController;
+use App\Http\Controllers\UserController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -19,13 +20,18 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('appusers', [AppUserController::class, 'index']);
-Route::group(['prefix' => 'appuser'], function () {
-    Route::post('add', [AppUserController::class, 'add']);
-    Route::get('edit/{id}', [AppUserController::class, 'edit']);
-    Route::post('update/{id}', [AppUserController::class, 'update']);
-    Route::delete('delete/{id}', [AppUserController::class, 'delete']);
-});
+// user controller routes
+Route::post("register", [UserController::class, "register"]);
+
+Route::post("login", [UserController::class, "login"]);
+
+// Route::get('appusers', [AppUserController::class, 'index']);
+// Route::group(['prefix' => 'appuser'], function () {
+//     Route::post('add', [AppUserController::class, 'add']);
+//     Route::get('edit/{id}', [AppUserController::class, 'edit']);
+//     Route::post('update/{id}', [AppUserController::class, 'update']);
+//     Route::delete('delete/{id}', [AppUserController::class, 'delete']);
+// });
 
 Route::get('devices', [DeviceController::class, 'index']);
 Route::group(['prefix' => 'device'], function () {
@@ -33,4 +39,16 @@ Route::group(['prefix' => 'device'], function () {
     Route::get('edit/{id}', [DeviceController::class, 'edit']);
     Route::post('update/{id}', [DeviceController::class, 'update']);
     Route::delete('delete/{id}', [DeviceController::class, 'delete']);
+});
+
+Route::middleware('auth:api')->group(function () {
+    Route::get("user", [UserController::class, "user"]);
+
+    Route::get('appusers', [AppUserController::class, 'index']);
+    Route::group(['prefix' => 'appuser'], function () {
+        Route::post('add', [AppUserController::class, 'add']);
+        Route::get('edit/{id}', [AppUserController::class, 'edit']);
+        Route::post('update/{id}', [AppUserController::class, 'update']);
+        Route::delete('delete/{id}', [AppUserController::class, 'delete']);
+    });
 });

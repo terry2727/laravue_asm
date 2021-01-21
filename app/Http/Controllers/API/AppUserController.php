@@ -59,7 +59,7 @@ class AppUserController extends Controller
 
             $appuserInput              =       $request->all();
 
-            $appuser           =       AppUser::create($appUserInput);
+            $appuser           =       AppUser::create($appuserInput);
             if (!is_null($appuser)) {
                 return response()->json(["status" => "success", "message" => "Success! App user created", "data" => $appuser]);
             } else {
