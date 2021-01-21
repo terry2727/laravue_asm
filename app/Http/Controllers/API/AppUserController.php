@@ -13,19 +13,17 @@ class AppUserController extends Controller
     // all app user
     public function index()
     {
-        $appusers = AppUser::all()->toArray();
-        return array_reverse($appusers);
+        // $appusers = AppUser::all()->toArray();
+        // return array_reverse($appusers);
 
         $user               =           Auth::user();
         if (!is_null($user)) {
             $appusers          =           AppUser::all()->toArray();
-            // if(count($tasks) > 0) {
-            return response()->json(["status" => "success", "data" => $appusers], 200);
-            // }
-
-            // else {
-            //     return response()->json(["status" => "failed", "count" => count($tasks), "message" => "Failed! no task found"], 200);
-            // }
+            if (count($appusers) > 0) {
+                return response()->json(["status" => "success", "data" => $appusers], 200);
+            } else {
+                return response()->json(["status" => "failed", "count" => count($appusers), "message" => "Failed! no app user found"], 200);
+            }
         }
     }
 
@@ -71,8 +69,8 @@ class AppUserController extends Controller
     // edit app user
     public function edit($id)
     {
-        $appuser = AppUser::find($id);
-        return response()->json($appuser);
+        // $appuser = AppUser::find($id);
+        // return response()->json($appuser);
 
         $user           =       Auth::user();
         if (!is_null($user)) {
@@ -103,8 +101,8 @@ class AppUserController extends Controller
             // validation
             $validator      =       Validator::make($request->all(), [
                 "name"         =>      "required",
-                "address"   =>      "required",
-                "phonenumber" => "required"
+                // "address"   =>      "required",
+                // "phonenumber" => "required"
             ]);
 
             if ($validator->fails()) {
@@ -114,7 +112,7 @@ class AppUserController extends Controller
             // update post
             $update       =           $appuser->update($request->all());
 
-            return response()->json(["status" => "success", "message" => "Success! task updated", "data" => $appuser], 200);
+            return response()->json(["status" => "success", "message" => "Success! app user updated", "data" => $appuser], 200);
         } else {
             return response()->json(["status" => "failed", "message" => "Un-authorized user"], 403);
         }
@@ -129,13 +127,11 @@ class AppUserController extends Controller
         // return response()->json('App user successfully deleted');
 
         $user           =       Auth::user();
-        
-        if(!is_null($user)) {
+
+        if (!is_null($user)) {
             $appuser       =       AppUser::find($id)->delete();
             return response()->json(["status" => "success", "message" => "Success! App user deleted"], 200);
-        }
-
-        else {
+        } else {
             return response()->json(["status" => "failed", "message" => "Un-authorized user"], 403);
         }
     }
