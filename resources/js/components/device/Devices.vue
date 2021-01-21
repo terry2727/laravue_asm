@@ -1,15 +1,17 @@
 <template>
   <v-app id="inspire">
-    <div class="col-md-10"></div>
-    <div class="col-md-2">
-      <router-link :to="{ name: 'add_device' }" class="btn btn-primary"
-        >Add Device</router-link
-      >
-    </div>
+    <v-card-title>
+      <div class="col-md-10"></div>
+      <div class="col-md-2">
+        <router-link :to="{ name: 'add_device' }" class="btn btn-primary"
+          >Add Device</router-link
+        >
+      </div>
+    </v-card-title>
 
     <v-card>
       <v-card-title>
-        Nutrition
+        Devices
         <v-spacer></v-spacer>
         <v-text-field
           v-model="search"

@@ -2256,6 +2256,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -21635,23 +21637,25 @@ var render = function() {
     "v-app",
     { attrs: { id: "inspire" } },
     [
-      _c("div", { staticClass: "col-md-10" }),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "col-md-2" },
-        [
-          _c(
-            "router-link",
-            {
-              staticClass: "btn btn-primary",
-              attrs: { to: { name: "add_device" } }
-            },
-            [_vm._v("Add Device")]
-          )
-        ],
-        1
-      ),
+      _c("v-card-title", [
+        _c("div", { staticClass: "col-md-10" }),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "col-md-2" },
+          [
+            _c(
+              "router-link",
+              {
+                staticClass: "btn btn-primary",
+                attrs: { to: { name: "add_device" } }
+              },
+              [_vm._v("Add Device")]
+            )
+          ],
+          1
+        )
+      ]),
       _vm._v(" "),
       _c(
         "v-card",
@@ -21659,7 +21663,7 @@ var render = function() {
           _c(
             "v-card-title",
             [
-              _vm._v("\n      Nutrition\n      "),
+              _vm._v("\n      Devices\n      "),
               _c("v-spacer"),
               _vm._v(" "),
               _c("v-text-field", {
